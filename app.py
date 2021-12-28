@@ -1,22 +1,13 @@
-from dataclasses import dataclass
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
+from constants import DATABASE_URI
+from models.note import Note
+
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:password$@localhost/flask_note_app"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(app)
-
-
-@dataclass
-class Note(db.Model):
-    __tablename__="note"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    content = db.Column(db.Text)
-
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
 
 
 @app.route("/add_note", methods=["POST"])
