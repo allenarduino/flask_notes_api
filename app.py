@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 
 @dataclass
 class Note(db.Model):
+    __tablename__="note"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     content = db.Column(db.Text)
